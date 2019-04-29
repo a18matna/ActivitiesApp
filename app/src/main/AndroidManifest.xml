@@ -17,8 +17,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MountainDetailsActivity"
-            android:parentActivityName="com.example.brom.activitiesapp.MainActivity"></activity>
+        <activity
+            android:name=".MountainDetailsActivity"
+            android:label="Mountain Details Activity"
+            android:parentActivityName="com.example.brom.activitiesapp.MainActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=
+                "com.example.brom.activitiesapp.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

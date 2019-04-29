@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">A18matna - Assignment 3</string>
+    <string name="text_header">Message Recieved</string>
 </resources>
