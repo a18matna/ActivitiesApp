@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -18,17 +20,30 @@ import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    private TextView mMessageEditText;
     private String[] mountainNames = {"Matterhorn","Mont Blanc","Denali"};
     private String[] mountainLocations = {"Alps","Alps","Alaska"};
     private int[] mountainHeights ={4478,4808,6190};
+    private ArrayList<Mountain>mountainArrayList=new ArrayList<>();
+
+
     // Create ArrayLists from the raw data above and use these lists when populating your ListView.
+
+
     private static final String LOG_TAG =
             MainActivity.class.getSimpleName();
+    public static final String EXTRA_MESSAGE =
+            "com.example.brom.activitiesapp.extra.MESSAGE";
     @Override
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        mMessageEditText = findViewById(R.id.text_message);
+        mountainArrayList.add(new Mountain("Matterhorn","Alps",4478));
+        mountainArrayList.add(new Mountain("Mont Blanc","Alps",4808));
+        mountainArrayList.add(new Mountain("Denali","Alaska",6190));
 
         //skapa en array
 
@@ -36,27 +51,33 @@ public class MainActivity extends AppCompatActivity {
         // Skapa ett List-objekt med din array som in-data
         List<String> listData =new ArrayList<String>(Arrays.asList(mountainNames));
 
+
         //skapa en ArrayAdapter som kopplar samman
         // list_item_textview, my_item_textview, och listan med rådata
-        ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),R.layout.list_item_textview,R.id.my_item_textview,listData);
-
+        //ArrayAdapter adapter = new ArrayAdapter(getApplicationContext(),R.layout.list_item_textview,R.id.my_item_textview,listData);
+        ArrayAdapter<Mountain> adapter=new ArrayAdapter<Mountain>(this,R.layout.list_item_textview,R.id.my_item_textview,mountainArrayList);
         //Koppla samman ListView med ArrayAdapter
-        ListView myListView = (ListView)findViewById(R.id.my_listview);
-        myListView.setAdapter(adapter);
+        ListView my_ListView = (ListView)findViewById(R.id.my_listview);
+        my_ListView.setAdapter(adapter);
 
         // se att vi kan lägga till element i adaptern
         // som automatiskt blir uppdaterat i ListView:n
-        adapter.add("tillagd med adapter.add");
+       // adapter.add("tillagd med adapter.add");
 
 
 
-        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        my_ListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
 
                 Log.d(LOG_TAG, "Button clicked!");
-                Toast.makeText(getApplicationContext(), ""+mountainNames[position] + "\nheight: "+mountainHeights[position] + "\nLocation: " +mountainLocations[position], Toast.LENGTH_LONG).show();
+               // Toast.makeText(getApplicationContext(), mountainArrayList.get(position).info(),Toast.LENGTH_SHORT.show());
                 Intent intent = new Intent(getApplicationContext(), MountainDetailsActivity.class);
+                //String message = mMessageEditText.getText().toString();
+                /* ingen aning
+                intent.putExtra("name", mountainNames[position]);
+                intent.putExtra("height", ""+ mountainHeights[position]);
+                intent.putExtra("location", mountainLocations[position]); */
                 startActivity(intent);
             }
         });
