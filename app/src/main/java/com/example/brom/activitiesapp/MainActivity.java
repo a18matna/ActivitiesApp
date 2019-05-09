@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
                // Toast.makeText(getApplicationContext(), mountainArrayList.get(position).info(),Toast.LENGTH_SHORT.show());
                 Intent intent = new Intent(getApplicationContext(), MountainDetailsActivity.class);
                 //String message = mMessageEditText.getText().toString();
-              //  intent.putExtra("Berg", "namn: " +mountainNames[position] + "\n höjd: "+mountainHeights [position] +"\n plats: "+mountainLocations[position]);
+
                intent.putExtra("name", mountainNames[position]);
                 intent.putExtra("height", ""+ mountainHeights[position]);
                 intent.putExtra("location", mountainLocations[position]);
